@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.mall.user.dao.UserDao">
+
+	<sql id="user_base_select">
+		SELECT ROW_ID,CREATE_BY,CREATE_DATE,USER_KIND,USER_NAME,USER_CODE,USER_PASS,USER_PHONE,LAST_IP,LAST_LOGIN_DATE FROM TB_USER WHERE ACTIVE_FLAG = 1
+	</sql>
+
+	<insert id="reg" parameterType="User" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO TB_USER(CREATE_BY,CREATE_DATE,USER_KIND,USER_NAME,USER_CODE,USER_PASS,
+		USER_PHONE,ACTIVE_FLAG,LAST_IP,LAST_LOGIN_DATE) VALUES (#{createBy},#{createDate},#{userKind},#{userName},
+		#{userCode},#{userPass},#{userPhone},#{activeFlag},#{lastIp},#{lastLoginDate})
+	</insert>
+
+	<select id="find" resultType="User">
+		<include refid="user_base_select" />
+		AND USER_CODE = #{userCode} AND USER_PASS = #{userPass}
+	</select>
+	<select id="findById" resultType="User">
+		<include refid="user_base_select" />
+		AND ROW_ID = #{rowId}
+	</select>
+
+	<update id="doUpdate" parameterType="User">
+		UPDATE TB_USER
+		<set>
+			<if test="createBy!=null">
+				CREATE_BY = #{createBy},
+			</if>
+			<if test="updateBy!=null">
+				UPDATE_BY = #{updateBy},
+			</if>
+			<if test="updateDate!=null">
+				UPDATE_DATE = #{updateDate},
+			</if>
+
+			<if test="userName!=null">
+				USER_NAME = #{userName},
+			</if>
+			<if test="userCode!=null">
+				USER_CODE = #{userCode},
+			</if>
+			<if test="userPass!=null">
+				USER_PASS = #{userPass},
+			</if>
+			<if test="userPhone!=null">
+				USER_PHONE=#{userPhone},
+			</if>
+
+			<if test="activeFlag!=null">
+				ACTIVE_FLAG=#{activeFlag},
+			</if>
+			<if test="lastIp!=null">
+				LAST_IP=#{lastIp},
+			</if>
+
+			<if test="lastLoginDate!=null">
+				LAST_LOGIN_DATE=#{lastLoginDate},
+			</if>
+		</set>
+		WHERE ROW_ID = #{rowId}
+	</update>
+
+    <update id="doDelete" >
+		UPDATE TB_USER SET ACTIVE_FLAG = 0 WHERE ROW_ID = #{rowId}
+   </update> 
+        
+	<select id="findByCode" resultType="User">
+		<include refid="user_base_select" />
+		AND USER_CODE = #{userCode}
+	</select>
+
+</mapper>

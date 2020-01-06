@@ -1,0 +1,24 @@
+//页面加载完毕后开始执行
+$(document).ready(function(){
+	 $('#button_login').on('click',function(){
+		 alert('确定登录');
+		 $.ajax({
+			 type:'post',
+			 url:'mall/doLogin',
+			 data:$('#form_user_login').serialize(),
+			 dataType:'json',
+			 success:function(result){
+				 if(result==1){
+					 alert("登录成功");
+				 window.location.href="mall/goIndex"	 
+				 }
+				 if(result==0){
+					 alert("账号或者密码错误，请重新输入");
+					 //把登录页面重置
+					 $('#form_user_login')[0].reset();
+				 }
+			 }
+		 });
+	 });
+	
+});
