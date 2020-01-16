@@ -1,24 +1,33 @@
 package com.situ.mall.user.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.situ.mall.user.domain.User;
 
 public interface UserService {
 
-	long regUser(User user);
+	Long regUser(User user);
 	
 	Integer find(HttpServletRequest request, User user);
+	//展示
+	List<User> findAll();
 
-	boolean checkByCode(String userCode);
+	Boolean checkByCode(String userCode);
 	
 	User findByCode(String userCode);
 	
-	long doUpdate(HttpServletRequest request, User user);
-	//删除账户
-	long doDelete( HttpServletRequest request, long rowId); 
+	Long doUpdate(HttpServletRequest request, User user);
 	
-	long doOutLogin(HttpServletRequest request);
+	Long doAdminUpdate(User user);
+	
+	Long doAdminDelete(Long rowId);
+	
+	//删除账户
+	Long doDelete( HttpServletRequest request, long rowId); 
+	
+	Long doOutLogin(HttpServletRequest request);
 	//根据id找到用户
 	User findUserById(long rowId);
 }

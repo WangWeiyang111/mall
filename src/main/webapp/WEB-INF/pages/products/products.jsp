@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +28,6 @@
 <body>
 
 <%@include file="/menu.jsp"%>
-
-	
 
 	<!-- Content -->
 	<div class="content-right">
@@ -61,8 +60,9 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-4">
+			<div class="row" id="productLookList1">
+			<!-- 第一张图片开始 -->
+				<!-- <div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="panel">
 						<div class="panel-body p-t-30 p-b-30 text-center">
 							<div class="badge-sale-primary">Sale</div>
@@ -75,10 +75,17 @@
 								<h5 class="m-tb-20">Staro-One S1000</h5>
 							</a>
 
+
 							<h6 class="text-success">$199.00</h6>
 						</div>
 					</div>
 				</div>
+             第一张图片开结束
+
+
+
+
+
 
 				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="panel">
@@ -98,6 +105,9 @@
 					</div>
 				</div>
 
+
+
+
 				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="panel">
 						<div class="panel-body p-t-30 p-b-30 text-center">
@@ -112,10 +122,13 @@
 							<h6 class="text-success">$399.00</h6>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
-			<div class="row">
+
+
+
+		<!-- 	<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="panel">
 						<div class="panel-body p-t-30 p-b-30 text-center">
@@ -163,9 +176,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="row m-b-70">
+			<!-- <div class="row m-b-70">
 				<div class="col-xs-12 col-sm-3 col-md-3">
 					<div class="panel">
 						<div class="panel-body p-t-30 p-b-30 text-center">
@@ -229,7 +242,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="row m-b-70">
 				<div class="col-sm-12 text-center">
@@ -477,9 +490,10 @@
 	</div>
 	<!-- Search overlay -->
 
-	<script src="assert/plugins/jquery.min.js"></script>
+	<<!-- script src="assert/plugins/jquery.min.js"></script> -->
 	<script src="assert/plugins/bootstrap/bootstrap.min.js"></script>
 
 	<script src="assert/js/global.js"></script>
+	<script src="assert/pages/cart.js"></script>
 </body>
 </html>

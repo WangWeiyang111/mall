@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +64,39 @@
 							</div>
 
 							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-12 m-tb-100">
+							<!-- 开始 -->
+							<c:if test="${!empty product}">
+							<div class="col-xs-12 col-sm-12 col-md-12 m-tb-100">
+									<h4 class="text-success">${product.productName}</h4>
+									<p class="text-justify m-tb-70">${product.productInfo}</p>
+                                   
+									<h2>${product.productPrice}<small class="strike m-l-10">${product.productPrice}</small></h2>
+
+									<div class="m-b-20">
+										<a href="#" class="thumbnail variant active">
+											<span class="variant-color" style="background: #8A8B89;"></span>
+											<span class="variant-name">Gun-Metal</span>
+										</a>
+
+										<a href="#" class="thumbnail variant">
+											<span class="variant-color" style="background: #202024;"></span>
+											<span class="variant-name">Black</span>
+										</a>
+
+										<a href="#" class="thumbnail variant">
+											<span class="variant-color" style="background: #991841;"></span>
+											<span class="variant-name">Red</span>
+										</a>
+									</div>
+
+									<a href="javascript:goaddcart(${product.rowId});" class="btn btn-success"><i class="fas fa-shopping-bag"></i>&nbsp; 加入购物车</a>
+									<a href="cart/goCartList" class="btn btn-success"><i class="fas fa-shopping-bag"></i>&nbsp; 前往购物车</a>
+								</div>
+					
+				          </c:if>
+				          
+				          
+								<!-- <div class="col-xs-12 col-sm-12 col-md-12 m-tb-100">
 									<h1>ST-O S1000</h1>
 
 									<h4 class="text-success">Staro-One</h4>
@@ -90,8 +123,10 @@
 									</div>
 
 									<a href="#" class="btn btn-success"><i class="fas fa-shopping-bag"></i>&nbsp; Add to Cart</a>
-								</div>
-
+								</div> -->
+                            <!-- 结束 -->
+                            
+                            
 								<!-- Tabs -->
 								<div class="col-xs-12 col-sm-12 col-md-12">
 									<div role="tabpanel">
@@ -555,5 +590,6 @@
 	<script src="assert/plugins/bxslider/bxslider.min.js"></script>
 
 	<script src="assert/js/global.js"></script>
+	<script src="assert/pages/cart.js"></script>
 </body>
 </html>

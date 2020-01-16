@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.mall.area.dao.AreaDao">
+
+	<sql id="address_base_select">
+		SELECT
+		ROW_ID,AREA_CODE,AREA_NAME,PARENT_CODE,AREA_RUNK,HAS_CHILD,ACTIVE_FLAG,CREATE_BY,UPDATE_BY,UPDATE_DATE
+		FROM YT_CD_AREA
+	</sql>
+	
+	<select id="findByParentCode" resultType="Area">
+		<include refid="address_base_select" />
+		WHERE PARENT_CODE = -1
+	</select>
+	
+	<select id="findByCode" resultType="Area">
+		<include refid="address_base_select" />
+		WHERE PARENT_CODE = #{areaCode}
+	</select>
+	
+</mapper>

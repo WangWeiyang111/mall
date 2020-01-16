@@ -6,27 +6,41 @@ import java.util.List;
 import org.apache.ibatis.type.Alias;
 
 import com.situ.mall.base.domain.BaseUser;
-import com.situ.mall.product.domain.Product;
 
 @Alias("Catalog")
 public class Catalog extends BaseUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String catalogName;
-	List<Product> product;
+	private Long parentId;//父级目录的id
+	private String catalogName;//目录名称
+	private String catalogInfo;//目录信息
+	List<Catalog> catalogList;
 	
+	public Long getParentId() {
+		return parentId;
+	}
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
 	public String getCatalogName() {
 		return catalogName;
 	}
 	public void setCatalogName(String catalogName) {
 		this.catalogName = catalogName;
 	}
-	public List<Product> getProduct() {
-		return product;
+	public List<Catalog> getCatalogList() {
+		return catalogList;
 	}
-	public void setProduct(List<Product> product) {
-		this.product = product;
+	public void setCatalogList(List<Catalog> catalogList) {
+		this.catalogList = catalogList;
 	}
-    
+	public String getCatalogInfo() {
+		return catalogInfo;
+	}
+	public void setCatalogInfo(String catalogInfo) {
+		this.catalogInfo = catalogInfo;
+	}
+	
+	
 }

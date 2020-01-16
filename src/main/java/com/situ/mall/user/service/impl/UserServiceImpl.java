@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements Serializable, UserService {
 	private UserDao userDao;
 	
 	@Override
-	public long regUser(User user) {
+	public Long regUser(User user) {
 		user.setUserPass(MD5Utils.encode(user.getUserPass()));
 		user.setCreateBy("admin");
 		user.setCreateDate(new Date());
@@ -63,10 +64,10 @@ public class UserServiceImpl implements Serializable, UserService {
 	}
 	
 	@Override
-	public long doUpdate(HttpServletRequest request, User user) {
-		Integer result = 0;
+	public Long doUpdate(HttpServletRequest request, User user) {
+		Long result = 0L;
 		//避免重复加密密码
-		long rowId = user.getRowId();
+		Long rowId = user.getRowId();
 		String passUpdate = user.getUserPass();
 		String pass = userDao.findById(rowId).getUserPass();
 		if(pass.equals(passUpdate)) {
@@ -79,14 +80,14 @@ public class UserServiceImpl implements Serializable, UserService {
 		if(session.getAttribute("userSession")!=null) {
 			session.removeAttribute("userSession");
 		}
-		result = 1;
+		result = 1L;
 		return result;
 	}
 	
 	
 	
 	@Override
-	public boolean checkByCode(String userCode) {
+	public Boolean checkByCode(String userCode) {
 		// 根据角色名称查询实例
 	    User user = userDao.findByCode(userCode);
 		// 三元表达式，如果有返回true，如果没有返回false
@@ -102,7 +103,7 @@ public class UserServiceImpl implements Serializable, UserService {
 
 
 	@Override
-	public long doDelete(HttpServletRequest request, long rowId) {
+	public Long doDelete(HttpServletRequest request, long rowId) {
 		HttpSession  session = request.getSession();
 		if(session.getAttribute("userSession")!=null){
 			session.removeAttribute("userSession");
@@ -114,12 +115,12 @@ public class UserServiceImpl implements Serializable, UserService {
      
     //退出登录
 	@Override
-	public long doOutLogin(HttpServletRequest request) {
+	public Long doOutLogin(HttpServletRequest request) {
 			HttpSession session=request.getSession();
 			if(session.getAttribute("userSession")!=null){
 				session.removeAttribute("userSession");
 			}
-			return 1;
+			return 1L;
 	}
 
 	@Override
@@ -142,7 +143,7 @@ public class UserServiceImpl implements Serializable, UserService {
 		if(user == null) {
 			user = new User();
 			user.setUserName("管理员");
-			user.setUserKind("0");//1是用户  0是管理员
+			user.setUserKind("2");//1是用户  2是管理员
 			user.setUserCode(userCode);
 			user.setUserPass(MD5Utils.encode(userPass));
 			user.setUserPhone("123456");
@@ -159,6 +160,50 @@ public class UserServiceImpl implements Serializable, UserService {
 		}
 		
 		
+	}
+
+
+
+   
+	@Override
+	public List<User> findAll() {
+        
+		
+		return userDao.findAll();
+	}
+
+
+
+    /**
+     * 管理员对用户账号修改
+     */
+	@Override
+	public Long doAdminUpdate(User user) {
+		Long result = 10L;
+		//避免重复加密密码
+		Long rowId = user.getRowId();
+		String passUpdate = user.getUserPass();
+		String pass = userDao.findById(rowId).getUserPass();
+		if(pass.equals(passUpdate)) {
+			userDao.doUpdate(user);
+		}else {
+			user.setUserPass(MD5Utils.encode(passUpdate));
+			userDao.doUpdate(user);
+		}
+		return result;
+	}
+
+
+
+
+	/**
+	 * 管理员删除账户
+	 */
+	@Override
+	public Long doAdminDelete(Long rowId) {
+		Long result = 1L;
+		userDao.adminDelete(rowId);;
+		return result;
 	}
 
 

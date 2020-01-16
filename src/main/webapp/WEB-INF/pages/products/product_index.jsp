@@ -2,7 +2,7 @@
 <div class="card mb-3">
 	<div class="card-header">
 		<i class="fas fa-table"></i> 商品管理
-		<button type="button" class="btn btn-info btn-sm float-right" id="button_add">新增</button>
+		<button type="button" class="btn btn-info btn-sm float-right" id="button_add" >新增</button>
 	</div>
 	<div class="card-body">
 		<!-- 搜索页面开始 -->
@@ -58,6 +58,23 @@
 			</div>
 			<form id="form_product_add_edit" method="post" enctype = "mulitpart-formdata">
 				<div class="modal-body">
+				   <div class="form-group row">
+						<label class="col-sm-2 col-form-label">一级名称</label>
+						<div class="col-sm-7" id="div1">
+						   
+						</div>
+					</div>
+					
+					
+				  <div class="form-group row">
+						<label class="col-sm-2 col-form-label">二级名称</label>
+						<div class="col-sm-7" id="div2">
+						    
+						</div>
+					</div>
+					
+					
+					
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">商品名称</label>
 						<div class="col-sm-7">
@@ -103,7 +120,9 @@
 							<textarea class="form-control validate[required]" name="productInfo" id="productInfo"></textarea>
 						</div>
 					</div>
-					<!-- <input type="hidden" name="rowId" id="rowId" /> -->
+					<input type="hidden" name="rowId" id="rowId" />
+					<input type="hidden" name="parentId" id="parentId" />
+					
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>

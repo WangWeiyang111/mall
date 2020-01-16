@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.mall.cart.dao.CartDao">
+    
+     <sql id="base_select">
+        SELECT ROW_ID,USER_ID,PRODUCT_ID,ACCOUNT,TOTAL_PRICE FROM TB_CART
+    </sql>
+    
+    <insert id="saveCart" parameterType="Cart" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+        INSERT INTO TB_CART(USER_ID,PRODUCT_ID,ACCOUNT,TOTAL_PRICE)
+        VALUES(#{userId},#{productId},#{account},#{totalPrice}) 
+    </insert>
+
+      <select id="findById" resultType="Cart">
+		 <include refid="base_select"/> WHERE PRODUCT_ID = #{productId}
+	</select>
+    
+    <select id="findAll" resultType="CartDetail">
+		  SELECT ROW_ID,USER_ID,PRODUCT_ID,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_PICTURE,ACCOUNT,TOTAL_PRICE FROM VW_CART
+	</select>
+    <select id="findCartByUserId" resultType="CartDetail">
+		  SELECT ROW_ID,USER_ID,PRODUCT_ID,PRODUCT_NAME,PRODUCT_PRICE,PRODUCT_PICTURE,ACCOUNT,TOTAL_PRICE FROM VW_CART WHERE USER_ID=#{userId}
+	</select>
+    
+    <update id="updateCart" parameterType="Cart">
+		UPDATE TB_CART
+		<set>
+			<if test="userId!=null">
+				USER_ID = #{userId},
+			</if>
+			<if test="productId!=null">
+				PRODUCT_ID = #{productId},
+			</if>
+			<if test="account!=null">
+				ACCOUNT = #{account},
+			</if>
+			<if test="totalPrice!=null">
+				TOTAL_PRICE = #{totalPrice},
+			</if>
+			
+		</set>
+		WHERE ROW_ID = #{rowId}
+	</update>
+    
+    
+</mapper>

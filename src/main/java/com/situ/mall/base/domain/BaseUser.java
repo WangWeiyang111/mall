@@ -7,18 +7,12 @@ public class BaseUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private long rowId;//主键
+	private Long rowId;//主键
 	private String createBy;//创建人
 	private Date createDate;//创建日期
 	private String updateBy;//更新人
 	private Date updateDate;//更新时间
 	
-	public long getRowId() {
-		return rowId;
-	}
-	public void setRowId(long rowId) {
-		this.rowId = rowId;
-	}
 	public String getCreateBy() {
 		return createBy;
 	}
@@ -42,6 +36,12 @@ public class BaseUser implements Serializable {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	public Long getRowId() {
+		return rowId;
+	}
+	public void setRowId(Long rowId) {
+		this.rowId = rowId;
 	}
 	
 	

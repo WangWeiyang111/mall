@@ -1,7 +1,6 @@
 //页面加载完毕后开始执行
 $(document).ready(function(){
 	 $('#button_login').on('click',function(){
-		 alert('确定登录');
 		 $.ajax({
 			 type:'post',
 			 url:'mall/doLogin',
@@ -9,7 +8,6 @@ $(document).ready(function(){
 			 dataType:'json',
 			 success:function(result){
 				 if(result==1){
-					 alert("登录成功");
 				 window.location.href="mall/goIndex"	 
 				 }
 				 if(result==0){

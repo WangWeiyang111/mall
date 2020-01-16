@@ -4,25 +4,27 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.situ.mall.base.domain.PageData;
+import org.apache.ibatis.annotations.Param;
+
 import com.situ.mall.product.domain.Product;
+import com.situ.mall.product.domain.VwProduct;
 
 public interface ProductService {
 
 	Long saveProduct(HttpServletRequest request , Product product);
 
 	List<Product> find();
-
-	List<Product> findByPage(Integer pageNo, Product searchProduct);
+	
+	List<VwProduct> findVw();
 
 	Product findProductById(Long rowId);
+	
+	List<Product> findProductByCatalogId(Long catalogId);
 
 	Long doUpdate(Product product);
-
+	
+	Long doUpdateState(@Param("rowId") Long rowId ,String productState);
+	
 	Long doDeleteProduct(Long rowId);
 
-	Boolean checkProductName(String productName);
-
-	PageData buildPageData(Integer pageNo,Product searchProduct);
-	
 }

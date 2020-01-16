@@ -4,6 +4,60 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.situ.mall.catalog.dao.CatalogDao">
 
+    <sql id="base_select">
+        SELECT ROW_ID,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,PARENT_ID,CATALOG_NAME,CATALOG_INFO FROM 
+        TB_CATALOG
+    </sql>
+    
+    <select id="findByParentId" resultType="Catalog" >
+         <include refid="base_select"/> WHERE PARENT_ID = #{parentId}
+    </select>
+    
+    <select id="find" resultType="Catalog" >
+        <include refid="base_select"/>
+    </select>
+    
+    <insert id="save" parameterType="Catalog" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+        INSERT INTO TB_CATALOG(CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE,PARENT_ID,CATALOG_NAME,CATALOG_INFO)
+        VALUES(#{createBy},#{createDate},#{updateBy},#{updateDate},#{parentId},#{catalogName},#{catalogInfo}) 
+    </insert>
+    
+    <update id="doUpdate" parameterType="Catalog">
+		UPDATE TB_CATALOG
+		<set>
+			<if test="createBy!=null">
+				CREATE_BY = #{createBy},
+			</if>
+			<if test="createDate!=null">
+				CREATE_DATE = #{createDate},
+			</if>
+			<if test="updateBy!=null">
+				UPDATE_BY = #{updateBy},
+			</if>
+			<if test="updateDate!=null">
+				UPDATE_DATE = #{updateDate},
+			</if>
+			<if test="parentId!=null">
+				PARENT_ID = #{parentId},
+			</if>
 
-
+			<if test="catalogName!=null">
+				CATALOG_NAME = #{catalogName},
+			</if>
+			
+			<if test="catalogInfo!=null">
+				CATALOG_INFO = #{catalogInfo},
+			</if>
+		</set>
+		WHERE ROW_ID = #{rowId}
+	</update>
+    
+     <delete id="doDelete">
+		DELETE FROM TB_CATALOG WHERE ROW_ID = #{rowId} OR PARENT_ID = #{rowId}
+	</delete>
+    
+    <select id="findById" resultType="Catalog">
+		 <include refid="base_select"/> WHERE ROW_ID = #{rowId}
+	</select>
+    
 </mapper>

@@ -21,6 +21,7 @@ public class Product extends BaseUser implements Serializable {
 	private String activeFlag;
 	private String productStatus;// 商品状态
 	private String productInfo;
+	private String catalogId;
 	public String getProductName() {
 		return productName;
 	}
@@ -74,6 +75,12 @@ public class Product extends BaseUser implements Serializable {
 	}
 	public void setProductInfo(String productInfo) {
 		this.productInfo = productInfo;
+	}
+	public String getCatalogId() {
+		return catalogId;
+	}
+	public void setCatalogId(String catalogId) {
+		this.catalogId = catalogId;
 	}
 	
 

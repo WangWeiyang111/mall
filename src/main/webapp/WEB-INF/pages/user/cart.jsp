@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-	<title>Staro - Cart</title>
+	<title>购物车</title>
 
 	<meta name="author" content="IntelCoder, www.intelcoder.com" />
 	<meta name="description" content="Staro is a clean and light HTML5 theme for showing your products in a simple and elegant way. It's a fully responsive e-commerce template that was built with customers in mind." />
@@ -43,84 +44,43 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th colspan="2">Product</th>
-									<th class="text-center">Price</th>
-									<th class="text-center">Quantity</th>
-									<th class="text-center">Total</th>
-									<th class="text-center">Action</th>
+								    <th scope="col">#</th>
+									<th scope="col" colspan="2">Product</th>
+									<th scope="col" class="text-center">Price</th>
+									<th scope="col" class="text-center">Quantity</th>
+									<th scope="col" class="text-center">Total-Price</th>
+									<th scope="col" class="text-center">Action</th>
 								</tr>
 							</thead>
 
 							<tbody>
-								<tr>
-									<td class="col-sm-1 hidden-xs">
+							<c:if test="${!empty cartList}">
+					    <c:forEach items="${cartList}" var="product" varStatus="status">
+						 <tr>
+							<th scope="row">${status.index+1}</th>
+							<td class="col-sm-1 hidden-xs">
 										<a href="#" class="thumbnail m-b-0">
-											<img src="assert/img/products/product3.png" alt="" />
+											<img src="${product.productPicture}" alt="" />
 										</a>
-									</td>
-
-									<td class="col-sm-4">
-										<h4 class="m-b-5"><a href="#">Staro-Two</a></h4>
-										<h6>ST-T A100</h6>
-									</td>
-
-									<td class="col-sm-2 text-center"><strong>$290.00</strong></td>
-
-									<td class="col-sm-2 text-center">
-										<div class="input-group">
-											<span class="input-group-addon hidden-sm">
-												<input type="button" name="qty_minus" class="btn-qty" value="-" data-field="quantity" />
-											</span>
-
-											<input type="text" name="quantity" class="form-control text-center" value="3" />
-
-											<span class="input-group-addon hidden-sm">
-												<input type="button" name="qty_plus" class="btn-qty" value="+" data-field="quantity" />
-											</span>
-										</div>
-									</td>
-
-									<td class="col-sm-2 text-center"><strong>$870.00</strong></td>
-
-									<td class="col-sm-1 text-center">
+							</td>
+							     
+							<td class="col-sm-4">
+										<h4 class="m-b-5"><a href="#">${product.productName}</a></h4>
+										<h6>${product.productId}</h6>
+					        </td>
+							
+							<td class="col-sm-2 text-center"><strong>${product.productPrice}</strong></td>
+							
+							<td class="col-sm-2 text-center"><strong>${product.account}</strong></td>
+							
+							<td class="col-sm-2 text-center"><strong>${product.totalPrice}</strong></td>
+							<td class="col-sm-1 text-center">
 										<a href="#" class="btn btn-primary btn-square btn-sm"><i class="fas fa-times"></i></a>
-									</td>
-								</tr>
-
-								<tr>
-									<td class="col-sm-1 hidden-xs">
-										<a href="#" class="thumbnail m-b-0">
-											<img src="assert/img/products/product10.png" alt="" />
-										</a>
-									</td>
-
-									<td class="col-sm-4">
-										<h4 class="m-b-5"><a href="#">Staro-One</a></h4>
-										<h6>ST-O S2000</h6>
-									</td>
-
-									<td class="col-sm-2 text-center"><strong>$149.00</strong></td>
-
-									<td class="col-sm-2 text-center">
-										<div class="input-group">
-											<span class="input-group-addon hidden-sm">
-												<input type="button" name="qty_minus" class="btn-qty" value="-" data-field="quantity" />
-											</span>
-
-											<input type="text" name="quantity" class="form-control text-center" value="2" />
-
-											<span class="input-group-addon hidden-sm">
-												<input type="button" name="qty_plus" class="btn-qty" value="+" data-field="quantity" />
-											</span>
-										</div>
-									</td>
-
-									<td class="col-sm-2 text-center"><strong>$298.00</strong></td>
-
-									<td class="col-sm-1 text-center">
-										<a href="#" class="btn btn-primary btn-square btn-sm"><i class="fas fa-times"></i></a>
-									</td>
-								</tr>
+							</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+							
 							</tbody>
 
 							<tfoot>
@@ -128,10 +88,10 @@
 									<td colspan="6" class="hidden-xs">&nbsp;</td>
 								</tr>
 
-								<tr>
+								<!-- <tr>
 									<td colspan="3" class="b-t-0">Shipping and discounts will be calculated at checkout</td>
 									<td colspan="3" class="b-t-0 text-right"><h3 class="m-b-0">Total&nbsp; $1168.00</h3></td>
-								</tr>
+								</tr> -->
 
 								<tr>
 									<td colspan="6" class="b-t-0 hidden-xs">&nbsp;</td>
@@ -142,7 +102,7 @@
 										<a href="mall/goIndex" class="btn btn-default">Continue Shopping</a>
 									</td>
 									<td colspan="3" class="b-t-0 text-right">
-										<a href="mall/goCheckout" class="btn btn-success"><i class="fas fa-shopping-bag"></i>&nbsp; Proceed to Checkout</a>
+										<a href="order/goorder" class="btn btn-success"><i class="fas fa-shopping-bag"></i>&nbsp;前往订单页</a>
 									</td>
 								</tr>
 							</tfoot>
@@ -367,9 +327,9 @@
 	</div>
 	<!-- Search overlay -->
 
-	<script src="assert/plugins/jquery.min.js"></script>
+	<!-- <script src="assert/plugins/jquery.min.js"></script> -->
 	<script src="assert/plugins/bootstrap/bootstrap.min.js"></script>
 
 	<script src="assert/js/global.js"></script>
 </body>
-</html>>
+</html>

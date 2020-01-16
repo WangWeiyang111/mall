@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.situ.mall.cart.service.CartService;
+import com.situ.mall.catalog.service.CatalogService;
 import com.situ.mall.user.domain.User;
 import com.situ.mall.user.service.UserService;
 
@@ -22,7 +24,10 @@ public class UserController implements Serializable {
 
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private CatalogService catalogService;
+	@Autowired
+	private CartService cartService;
 	
 	/**
 	 * @跳转登录页面
@@ -31,10 +36,17 @@ public class UserController implements Serializable {
 	 */
 	@RequestMapping("/goLogin")
 	public ModelAndView goLogin(ModelAndView modelAndView) {
+		modelAndView.addObject("catalogList", catalogService.find());
 		modelAndView.setViewName("user/login");
 		return modelAndView;
 	}
 
+	@RequestMapping("/admin")
+	public ModelAndView goAdminn(ModelAndView modelAndView) {
+		modelAndView.setViewName("user/adminlogin");
+		return modelAndView;
+	}
+	
 	/**
 	 * @跳转注册页面
 	 * @param modelAndView
@@ -42,9 +54,12 @@ public class UserController implements Serializable {
 	 */
 	@RequestMapping("/goRegister")
 	public ModelAndView goRegister(ModelAndView modelAndView) {
+		modelAndView.addObject("catalogList", catalogService.find());
 		modelAndView.setViewName("user/register");
 		return modelAndView;
 	}
+	
+
 
 
 	/**
@@ -55,21 +70,22 @@ public class UserController implements Serializable {
 	 */
 	@RequestMapping("/goCart")
 	public ModelAndView goCart(ModelAndView modelAndView) {
+		/*
+		 * modelAndView.addObject("catalogList", catalogService.find());
+		 * modelAndView.setViewName("user/cart");
+		 */
+		modelAndView.addObject("cartList", cartService.findAll());
 		modelAndView.setViewName("user/cart");
 		return modelAndView;
 	}
-
-	/**
-	 * 
-	 * @跳转checkout
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequestMapping("/goCheckout")
-	public ModelAndView goCheckout(ModelAndView modelAndView) {
-		modelAndView.setViewName("user/checkout");
+	
+	@RequestMapping("/goProduct")
+	public ModelAndView goProduct(ModelAndView modelAndView) {
+		modelAndView.addObject("catalogList", catalogService.find());
+		modelAndView.setViewName("products/products");
 		return modelAndView;
 	}
+
 
 	/**
 	 * 
@@ -79,69 +95,13 @@ public class UserController implements Serializable {
 	 */
 	@RequestMapping("/goProducts")
 	public ModelAndView goProducts(ModelAndView modelAndView) {
+		modelAndView.addObject("catalogList", catalogService.find());
 		modelAndView.setViewName("products/products");
 		return modelAndView;
 	}
-    
-	/**
-	 * 
-	 * @跳转Product-Details
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequestMapping("/goProduct-Details")
-	public ModelAndView goProductDetails(ModelAndView modelAndView) {
-		modelAndView.setViewName("products/product-details");
-		return modelAndView;
-	}
+   
 
-	/**
-	 * 
-	 * @跳转About
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequestMapping("/goAbout")
-	public ModelAndView goAbout(ModelAndView modelAndView) {
-		modelAndView.setViewName("products/about");
-		return modelAndView;
-	}
 
-	/**
-	 * 
-	 * @跳转Blog
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequestMapping("/goBlog")
-	public ModelAndView gogoBlog(ModelAndView modelAndView) {
-		modelAndView.setViewName("products/blog");
-		return modelAndView;
-	}
-
-	/**
-	 * 
-	 * @跳转Blog-Post
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequestMapping("/goBlog-Post")
-	public ModelAndView goBlogPost(ModelAndView modelAndView) {
-		modelAndView.setViewName("products/blog-post");
-		return modelAndView;
-	}
-
-	/**
-	 * 
-	 * @跳转Contact
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequestMapping("/goContact")
-	public ModelAndView goContact(ModelAndView modelAndView) {
-		modelAndView.setViewName("products/contact");
-		return modelAndView;
-	}
 	/**
 	 * 
 	 * @跳转Account
@@ -174,7 +134,7 @@ public class UserController implements Serializable {
 	 */
 	  @ResponseBody
 	  @RequestMapping("/checkUserCode") 
-	  public boolean checkUserCode(String userCode) {
+	  public Boolean checkUserCode(String userCode) {
 	  
 	  return userService.checkByCode(userCode); }
 
@@ -188,7 +148,7 @@ public class UserController implements Serializable {
 	 */
 	@ResponseBody
 	@RequestMapping("/doRegister")
-	public long doRegister(User user) {
+	public Long doRegister(User user) {
 		
 		return userService.regUser(user);
 	}
@@ -256,10 +216,13 @@ public class UserController implements Serializable {
 	   */
 	  @ResponseBody
 	  @RequestMapping("/doupdate")
-	  public long doUpdate(HttpServletRequest request,User user) {
+	  public Long doUpdate(HttpServletRequest request,User user) {
 		  
 		  return userService.doUpdate(request, user);
 	  }
+	  
+	  
+	  
 	  
 }
 

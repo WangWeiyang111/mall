@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.mall.address.dao.AddressDao">
+	
+	<sql id="address_base_select">
+		SELECT ROW_ID,USER_ID,PROVINCE_CODE,CITY_CODE,DISTRICT_CODE,AREA_NAME,DETAILED_ADDRESS,ZIP_CODE,RECRIVE_PHONE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE
+	FROM TB_ADDRESS WHERE ACTIVE_FLAG = 1
+	</sql>
+	
+	<insert id="save" parameterType="Address" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO TB_ADDRESS (USER_ID,PROVINCE_CODE,CITY_CODE,DISTRICT_CODE,DETAILED_ADDRESS,ZIP_CODE,RECRIVE_PHONE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE)
+		VALUES (#{userId},#{provinceCode},#{cityCode},#{districtCode},#{detailedAddress},#{zipCode},#{receivePhone},#{activeFlag},#{createBy},#{createDate})
+	</insert>
+	
+	<select id="findByUserId" resultType="AddressDetail">
+		SELECT ROW_ID,USER_ID,AREA_NAME,DETAILED_ADDRESS,ZIP_CODE,RECRIVE_PHONE FROM VW_ADDRESS WHERE USER_ID=#{userId}
+	</select>
+	<select id="findAllByUserId" resultType="AdressLook">
+		SELECT ROW_ID,USER_ID,ADDRESS_LOOK,ZIP_CODE,RECRIVE_PHONE FROM VW_VW_ADDRESS WHERE USER_ID=#{userId}
+	</select>
+	
+	<select id="findAddressByRowId" resultType="Address">
+		<include refid="address_base_select" /> AND ROW_ID = #{rowId}
+	</select>
+	
+	<select id="findAddress" resultType="AddressDetail">
+		SELECT ROW_ID,USER_ID,AREA_NAME,DETAILED_ADDRESS,ZIP_CODE,RECRIVE_PHONE
+	FROM VW_ADDRESS
+	</select>
+	
+	<update id="update" parameterType="Address">
+		UPDATE TB_ADDRESS SET PROVINCE_CODE=#{address.provinceCode},CITY_CODE=#{address.cityCode},AREA_CODE=#{address.areaCode},DETAILED_ADDRESS=#{address.detailedAddress},ZIP_CODE=#{address.zipCode},RECRIVE_PHONE=#{address.receivePhone} WHERE ROW_ID=#{address.rowId} 
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM TB_ADDRESS WHERE ROW_ID=#{rowId}
+	</delete>
+	
+</mapper>

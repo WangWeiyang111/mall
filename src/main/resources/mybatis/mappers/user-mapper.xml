@@ -23,17 +23,27 @@
 		AND ROW_ID = #{rowId}
 	</select>
 
+   <select id="findAll" resultType="User">
+		<include refid="user_base_select" />
+	</select>
+	
 	<update id="doUpdate" parameterType="User">
 		UPDATE TB_USER
 		<set>
 			<if test="createBy!=null">
 				CREATE_BY = #{createBy},
 			</if>
+			<if test="createDate!=null">
+				CREATE_DATE = #{createDate},
+			</if>
 			<if test="updateBy!=null">
 				UPDATE_BY = #{updateBy},
 			</if>
 			<if test="updateDate!=null">
 				UPDATE_DATE = #{updateDate},
+			</if>
+			<if test="userKind!=null">
+				USER_KIND = #{userKind},
 			</if>
 
 			<if test="userName!=null">
@@ -66,6 +76,10 @@
     <update id="doDelete" >
 		UPDATE TB_USER SET ACTIVE_FLAG = 0 WHERE ROW_ID = #{rowId}
    </update> 
+        
+     <delete id="adminDelete">
+		DELETE FROM TB_USER WHERE ROW_ID = #{rowId}
+	</delete>
         
 	<select id="findByCode" resultType="User">
 		<include refid="user_base_select" />

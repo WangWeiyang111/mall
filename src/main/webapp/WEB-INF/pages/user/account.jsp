@@ -10,7 +10,6 @@
 <meta name="author" content="">
 <title>Mall</title>
 
-
 <jsp:include page="/base.jsp"></jsp:include>
 <!-- Custom fonts for this template-->
 <link href="assert/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -74,9 +73,11 @@
 		<ul class="sidebar navbar-nav" id="left_menu">
 			<li class="nav-item active"><a class="nav-link" href=""> <i class="fas fa-fw fa-tachometer-alt"></i> <span>系统首页</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href=""> <i class="fas fa-fw fa-table"></i> <span>订单管理</span></a></li>
-			<li class="nav-item"><a class="nav-link" href=""> <i class="fas fa-fw fa-table"></i> <span>目录管理</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="order/goorderindex"> <i class="fas fa-fw fa-table"></i> <span>订单管理</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="address/goMyAddressIndex"> <i class="fas fa-fw fa-table"></i> <span>地址管理</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="catalog/gocatalogindex"> <i class="fas fa-fw fa-table"></i> <span>目录管理</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="product/goproductindex"> <i class="fas fa-fw fa-table"></i> <span>商品管理</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="admin/goadminuserindex"> <i class="fas fa-fw fa-table"></i> <span>用户管理</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="mall/goUserAccount"> <i class="fas fa-fw fa-chart-area"></i> <span>个人账户</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="tables.html"> <i class="fas fa-fw fa-table"></i> <span>Tables</span></a></li>
 		</ul>
@@ -675,6 +676,8 @@
 	<script src="assert/vendor/jquery/jquery.min.js"></script>
 	<script src="assert/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="assert/vendor/jquery.blockui.min.js"></script>
+	<script src="assert/vendor/bootstrap/js/bootstrap.min.js"></script>
+	
 	<!-- Core plugin JavaScript-->
 	<script src="assert/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -689,8 +692,10 @@
 	<!-- Custom scripts for all pages-->
 	<script src="assert/js/sb-admin.min.js"></script>
 	<script type="text/javascript" src="assert/js/eoa-index.js"></script>
+	
 	<!-- Demo scripts for this page-->
 	<script src="assert/js/demo/datatables-demo.js"></script>
 	<script src="assert/js/demo/chart-area-demo.js"></script>
+	
 </body>
 </html>

@@ -2,7 +2,6 @@
 $(document).ready(function() {
 	// 对注册按钮绑定事件
 	$('#button_register').on('click', function() {
-		alert("确定注册");
 		$.ajax({
 			type : 'post',
 			url : 'mall/doRegister',
